@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-  workflow_call:
+    
 
 jobs:
   test:
@@ -35,7 +35,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - uses: actions/checkout@v2
@@ -49,6 +49,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Plan Staging
         run: echo "Plan Staging"
+      - name: Plan Production
+        run: echo "Plan Production"
+        if: github.ref == 'refs/heads/production'
 
   apply:
     runs-on: ubuntu-latest
@@ -57,3 +60,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Apply Staging
         run: echo "Apply Staging"
+      - name: Apply Production
+        run: echo "Apply Production"
+        if: github.ref == 'refs/heads/production'
+        
